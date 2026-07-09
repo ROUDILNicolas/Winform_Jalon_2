@@ -1,0 +1,31 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Build .NET
+bin/
+obj/
+
+# Tests
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# Logs
+*.log
+
+# Fichiers locaux / secrets
+appsettings.Development.json
+appsettings.Local.json
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
