@@ -20,7 +20,9 @@ namespace WinForms_Jalon_2.Service
 
         private readonly HttpClient client = new();
         private readonly GestionnaireErreurApi gestionnaireErreurApi = new();
-        public EmployeConnecte? employeConnecte {  get; private set; }
+        private EmployeConnecte employeConnecte = new EmployeConnecte();
+
+        public EmployeConnecte EmployeConnecte => employeConnecte;
 
         public ServiceApi()
         {
@@ -36,7 +38,7 @@ namespace WinForms_Jalon_2.Service
 
             employeConnecte.Login = token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier || claim.Type == JwtRegisteredClaimNames.Sub || claim.Type == "sub")?.Value;
 
-            employeConnecte.Role = token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role || claim.Type == "role") ?.Value
+            employeConnecte.Role = token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role || claim.Type == "role")?.Value;
         }
 
         private void SetAccessToken(string accessToken)

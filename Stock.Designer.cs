@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tlpStock = new TableLayoutPanel();
             tpStock = new TabControl();
             tbStock = new TabPage();
@@ -35,8 +36,8 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             btnCRUD = new Button();
             btnQte = new Button();
-            txtbQte = new TextBox();
             lblQte = new Label();
+            txtbQte = new TextBox();
             tlpFormulaire = new TableLayoutPanel();
             tlpFomulaire2 = new TableLayoutPanel();
             txtbDescription = new TextBox();
@@ -71,6 +72,7 @@
             tpCmdStatut = new TabPage();
             dgvCmdStatut = new DataGridView();
             lblStock = new Label();
+            bsProduit = new BindingSource(components);
             tlpStock.SuspendLayout();
             tpStock.SuspendLayout();
             tbStock.SuspendLayout();
@@ -91,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvPrep).BeginInit();
             tpCmdStatut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCmdStatut).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsProduit).BeginInit();
             SuspendLayout();
             // 
             // tlpStock
@@ -109,7 +112,7 @@
             tlpStock.RowStyles.Add(new RowStyle());
             tlpStock.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpStock.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tlpStock.Size = new Size(1455, 744);
+            tlpStock.Size = new Size(772, 562);
             tlpStock.TabIndex = 0;
             // 
             // tpStock
@@ -119,10 +122,10 @@
             tpStock.Controls.Add(tpStatut);
             tpStock.Controls.Add(tpCmdStatut);
             tpStock.Dock = DockStyle.Fill;
-            tpStock.Location = new Point(55, 49);
+            tpStock.Location = new Point(30, 49);
             tpStock.Name = "tpStock";
             tpStock.SelectedIndex = 0;
-            tpStock.Size = new Size(1343, 642);
+            tpStock.Size = new Size(710, 460);
             tpStock.TabIndex = 0;
             // 
             // tbStock
@@ -131,7 +134,7 @@
             tbStock.Location = new Point(4, 29);
             tbStock.Name = "tbStock";
             tbStock.Padding = new Padding(3);
-            tbStock.Size = new Size(1335, 609);
+            tbStock.Size = new Size(702, 427);
             tbStock.TabIndex = 0;
             tbStock.Text = "Stock";
             tbStock.UseVisualStyleBackColor = true;
@@ -150,7 +153,7 @@
             tlpTcStock.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tlpTcStock.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpTcStock.RowStyles.Add(new RowStyle());
-            tlpTcStock.Size = new Size(1329, 603);
+            tlpTcStock.Size = new Size(696, 421);
             tlpTcStock.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -162,15 +165,15 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel2.Controls.Add(btnCRUD, 0, 1);
             tableLayoutPanel2.Controls.Add(btnQte, 3, 1);
-            tableLayoutPanel2.Controls.Add(txtbQte, 2, 1);
             tableLayoutPanel2.Controls.Add(lblQte, 2, 0);
+            tableLayoutPanel2.Controls.Add(txtbQte, 2, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.Size = new Size(1323, 54);
+            tableLayoutPanel2.Size = new Size(690, 54);
             tableLayoutPanel2.TabIndex = 4;
             // 
             // btnCRUD
@@ -185,28 +188,28 @@
             // 
             // btnQte
             // 
-            btnQte.Location = new Point(1260, 23);
+            btnQte.Location = new Point(627, 23);
             btnQte.Name = "btnQte";
             btnQte.Size = new Size(60, 32);
             btnQte.TabIndex = 0;
             btnQte.Text = "Entrer";
             btnQte.UseVisualStyleBackColor = true;
             // 
-            // txtbQte
-            // 
-            txtbQte.Location = new Point(1166, 23);
-            txtbQte.Name = "txtbQte";
-            txtbQte.Size = new Size(88, 27);
-            txtbQte.TabIndex = 1;
-            // 
             // lblQte
             // 
             lblQte.AutoSize = true;
-            lblQte.Location = new Point(1166, 0);
+            lblQte.Location = new Point(533, 0);
             lblQte.Name = "lblQte";
             lblQte.Size = new Size(33, 20);
             lblQte.TabIndex = 2;
             lblQte.Text = "Qte";
+            // 
+            // txtbQte
+            // 
+            txtbQte.Location = new Point(533, 23);
+            txtbQte.Name = "txtbQte";
+            txtbQte.Size = new Size(88, 27);
+            txtbQte.TabIndex = 1;
             // 
             // tlpFormulaire
             // 
@@ -216,11 +219,11 @@
             tlpFormulaire.Controls.Add(tlpFomulaire2, 1, 0);
             tlpFormulaire.Controls.Add(tlpFormulaireG, 0, 0);
             tlpFormulaire.Dock = DockStyle.Fill;
-            tlpFormulaire.Location = new Point(3, 276);
+            tlpFormulaire.Location = new Point(3, 94);
             tlpFormulaire.Name = "tlpFormulaire";
             tlpFormulaire.RowCount = 1;
             tlpFormulaire.RowStyles.Add(new RowStyle());
-            tlpFormulaire.Size = new Size(1323, 324);
+            tlpFormulaire.Size = new Size(690, 324);
             tlpFormulaire.TabIndex = 3;
             // 
             // tlpFomulaire2
@@ -230,12 +233,12 @@
             tlpFomulaire2.Controls.Add(txtbDescription, 0, 1);
             tlpFomulaire2.Controls.Add(flpFormulaire2, 0, 0);
             tlpFomulaire2.Dock = DockStyle.Fill;
-            tlpFomulaire2.Location = new Point(664, 3);
+            tlpFomulaire2.Location = new Point(348, 3);
             tlpFomulaire2.Name = "tlpFomulaire2";
             tlpFomulaire2.RowCount = 2;
             tlpFomulaire2.RowStyles.Add(new RowStyle());
             tlpFomulaire2.RowStyles.Add(new RowStyle());
-            tlpFomulaire2.Size = new Size(656, 318);
+            tlpFomulaire2.Size = new Size(339, 318);
             tlpFomulaire2.TabIndex = 1;
             // 
             // txtbDescription
@@ -245,7 +248,7 @@
             txtbDescription.Multiline = true;
             txtbDescription.Name = "txtbDescription";
             txtbDescription.ScrollBars = ScrollBars.Vertical;
-            txtbDescription.Size = new Size(650, 232);
+            txtbDescription.Size = new Size(333, 232);
             txtbDescription.TabIndex = 5;
             // 
             // flpFormulaire2
@@ -258,7 +261,7 @@
             flpFormulaire2.FlowDirection = FlowDirection.TopDown;
             flpFormulaire2.Location = new Point(3, 3);
             flpFormulaire2.Name = "flpFormulaire2";
-            flpFormulaire2.Size = new Size(650, 74);
+            flpFormulaire2.Size = new Size(333, 74);
             flpFormulaire2.TabIndex = 2;
             // 
             // lblcategorie
@@ -299,7 +302,7 @@
             tlpFormulaireG.RowCount = 2;
             tlpFormulaireG.RowStyles.Add(new RowStyle());
             tlpFormulaireG.RowStyles.Add(new RowStyle());
-            tlpFormulaireG.Size = new Size(655, 318);
+            tlpFormulaireG.Size = new Size(339, 318);
             tlpFormulaireG.TabIndex = 2;
             // 
             // flpFormulaireHG
@@ -317,7 +320,7 @@
             flpFormulaireHG.FlowDirection = FlowDirection.TopDown;
             flpFormulaireHG.Location = new Point(3, 3);
             flpFormulaireHG.Name = "flpFormulaireHG";
-            flpFormulaireHG.Size = new Size(649, 212);
+            flpFormulaireHG.Size = new Size(333, 212);
             flpFormulaireHG.TabIndex = 1;
             // 
             // lblNom
@@ -394,7 +397,7 @@
             flpFormulaireBG.Dock = DockStyle.Fill;
             flpFormulaireBG.Location = new Point(3, 221);
             flpFormulaireBG.Name = "flpFormulaireBG";
-            flpFormulaireBG.Size = new Size(649, 97);
+            flpFormulaireBG.Size = new Size(333, 97);
             flpFormulaireBG.TabIndex = 2;
             // 
             // btnAjouterProduit
@@ -431,7 +434,7 @@
             dgvStock.Location = new Point(3, 63);
             dgvStock.Name = "dgvStock";
             dgvStock.RowHeadersWidth = 51;
-            dgvStock.Size = new Size(1323, 207);
+            dgvStock.Size = new Size(690, 25);
             dgvStock.TabIndex = 1;
             // 
             // tbListePrep
@@ -440,7 +443,7 @@
             tbListePrep.Location = new Point(4, 29);
             tbListePrep.Name = "tbListePrep";
             tbListePrep.Padding = new Padding(3);
-            tbListePrep.Size = new Size(1335, 609);
+            tbListePrep.Size = new Size(702, 427);
             tbListePrep.TabIndex = 1;
             tbListePrep.Text = "Liste Préparation";
             tbListePrep.UseVisualStyleBackColor = true;
@@ -458,7 +461,7 @@
             tlpListePrep.RowCount = 2;
             tlpListePrep.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpListePrep.RowStyles.Add(new RowStyle());
-            tlpListePrep.Size = new Size(1329, 603);
+            tlpListePrep.Size = new Size(696, 421);
             tlpListePrep.TabIndex = 0;
             // 
             // dgvListePrep
@@ -469,12 +472,12 @@
             dgvListePrep.Location = new Point(3, 3);
             dgvListePrep.Name = "dgvListePrep";
             dgvListePrep.RowHeadersWidth = 51;
-            dgvListePrep.Size = new Size(1323, 500);
+            dgvListePrep.Size = new Size(690, 318);
             dgvListePrep.TabIndex = 0;
             // 
             // btnPreparer
             // 
-            btnPreparer.Location = new Point(1232, 509);
+            btnPreparer.Location = new Point(599, 327);
             btnPreparer.Name = "btnPreparer";
             btnPreparer.Size = new Size(94, 91);
             btnPreparer.TabIndex = 1;
@@ -487,7 +490,7 @@
             tpStatut.Location = new Point(4, 29);
             tpStatut.Name = "tpStatut";
             tpStatut.Padding = new Padding(3);
-            tpStatut.Size = new Size(1335, 609);
+            tpStatut.Size = new Size(702, 427);
             tpStatut.TabIndex = 2;
             tpStatut.Text = "Préparation";
             tpStatut.UseVisualStyleBackColor = true;
@@ -507,7 +510,7 @@
             tlpPrep.RowCount = 2;
             tlpPrep.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpPrep.RowStyles.Add(new RowStyle());
-            tlpPrep.Size = new Size(1329, 603);
+            tlpPrep.Size = new Size(696, 421);
             tlpPrep.TabIndex = 0;
             // 
             // dgvPrep
@@ -518,12 +521,12 @@
             dgvPrep.Location = new Point(3, 3);
             dgvPrep.Name = "dgvPrep";
             dgvPrep.RowHeadersWidth = 51;
-            dgvPrep.Size = new Size(1323, 500);
+            dgvPrep.Size = new Size(690, 318);
             dgvPrep.TabIndex = 0;
             // 
             // btnAnnulerPrep
             // 
-            btnAnnulerPrep.Location = new Point(3, 509);
+            btnAnnulerPrep.Location = new Point(3, 327);
             btnAnnulerPrep.Name = "btnAnnulerPrep";
             btnAnnulerPrep.Size = new Size(94, 91);
             btnAnnulerPrep.TabIndex = 1;
@@ -532,7 +535,7 @@
             // 
             // btnValiderPrep
             // 
-            btnValiderPrep.Location = new Point(1232, 509);
+            btnValiderPrep.Location = new Point(599, 327);
             btnValiderPrep.Name = "btnValiderPrep";
             btnValiderPrep.Size = new Size(94, 91);
             btnValiderPrep.TabIndex = 2;
@@ -545,7 +548,7 @@
             tpCmdStatut.Location = new Point(4, 29);
             tpCmdStatut.Name = "tpCmdStatut";
             tpCmdStatut.Padding = new Padding(3);
-            tpCmdStatut.Size = new Size(1335, 609);
+            tpCmdStatut.Size = new Size(702, 427);
             tpCmdStatut.TabIndex = 3;
             tpCmdStatut.Text = "CmdStatut";
             tpCmdStatut.UseVisualStyleBackColor = true;
@@ -557,7 +560,7 @@
             dgvCmdStatut.Location = new Point(3, 3);
             dgvCmdStatut.Name = "dgvCmdStatut";
             dgvCmdStatut.RowHeadersWidth = 51;
-            dgvCmdStatut.Size = new Size(1329, 603);
+            dgvCmdStatut.Size = new Size(696, 421);
             dgvCmdStatut.TabIndex = 0;
             // 
             // lblStock
@@ -565,7 +568,7 @@
             lblStock.Anchor = AnchorStyles.None;
             lblStock.AutoSize = true;
             lblStock.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblStock.Location = new Point(599, 0);
+            lblStock.Location = new Point(257, 0);
             lblStock.Name = "lblStock";
             lblStock.Size = new Size(255, 46);
             lblStock.TabIndex = 1;
@@ -576,11 +579,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1455, 744);
+            ClientSize = new Size(772, 562);
             Controls.Add(tlpStock);
             MinimumSize = new Size(736, 575);
             Name = "Stock";
             Text = "Stock";
+            Load += Stock_Load;
             tlpStock.ResumeLayout(false);
             tlpStock.PerformLayout();
             tpStock.ResumeLayout(false);
@@ -607,6 +611,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvPrep).EndInit();
             tpCmdStatut.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCmdStatut).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsProduit).EndInit();
             ResumeLayout(false);
         }
 
@@ -655,5 +660,6 @@
         private Button btnValiderPrep;
         private TabPage tpCmdStatut;
         private DataGridView dgvCmdStatut;
+        private BindingSource bsProduit;
     }
 }
