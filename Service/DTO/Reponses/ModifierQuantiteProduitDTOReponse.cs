@@ -6,7 +6,9 @@
 
         public string Nom { get; set; }
 
-        public int CategorieId { get; set; }
+        public int TypeProduitId { get; set; }
+
+        public string NomTypeProduit { get; set; }
 
         public int Quantite { get; set; }
 

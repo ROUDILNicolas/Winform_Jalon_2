@@ -6,7 +6,9 @@
 
         public string Nom { get; set; }
 
-        public int CategorieId_fk { get; set; }
+        public int TypeProduitId { get; set; }
+
+        public string NomTypeProduit { get; set; }
 
         public int Quantite { get; set; }
 
@@ -15,5 +17,7 @@
         public decimal PrixVente { get; set; }
 
         public string Description { get; set; }
+
+        public int Version { get; set; }
     }
 }
