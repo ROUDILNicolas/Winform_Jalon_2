@@ -116,5 +116,61 @@ namespace WinForms_Jalon_2.Service
                 return default;
             }
         }
+
+        /// <summary>
+        /// Envoie une requête PATCH avec un contenu JSON.
+        /// Retourne true si la requête HTTP a réussi, sinon false.
+        /// À utiliser lorsque l'API ne renvoie pas d'objet dans la réponse.
+        /// </summary>
+        /// <typeparam name="T">Type de l'objet envoyé dans la requête.</typeparam>
+        /// <param name="route">Route de l'endpoint API.</param>
+        /// <param name="contenu">Objet à envoyer dans le body de la requête.</param>
+        /// <param name="cancellationToken">Permet d'annuler la requête HTTP.</param>
+        /// <returns>True si la requête a réussi, sinon false.</returns>
+        public async Task<bool> PatchAsync<T>(string route,T contenu, CancellationToken cancellationToken = default)
+        {
+            // Envoie la requête PATCH avec le contenu converti en JSON
+            HttpResponseMessage reponse = await client.PatchAsJsonAsync(route, contenu, cancellationToken);
+
+            // Si l'API retourne une erreur HTTP
+            if (!reponse.IsSuccessStatusCode)
+            {
+                // Gestion centralisée de l'erreur
+                await gestionnaireErreurApi.GererErreurHttpAsync(reponse);
+                return false;
+            }
+            // La requête s'est correctement exécutée
+            return true;
+        }
+
+        /// <summary>
+        /// Envoie une requête PATCH avec un contenu JSON
+        /// et désérialise la réponse JSON retournée par l'API.
+        /// </summary>
+        /// <typeparam name="TRequete">Type de l'objet envoyé dans la requête.</typeparam>
+        /// <typeparam name="TReponse">Type de l'objet attendu dans la réponse.</typeparam>
+        /// <param name="route">Route de l'endpoint API.</param>
+        /// <param name="contenu">Objet à envoyer dans le body de la requête.</param>
+        /// <param name="cancellationToken">Permet d'annuler la requête HTTP.</param>
+        /// <returns>
+        /// L'objet désérialisé retourné par l'API,
+        /// ou null/default si la requête échoue.
+        /// </returns>
+        public async Task<TReponse?> PatchAsync<TRequete, TReponse>(string route, TRequete contenu, CancellationToken cancellationToken = default)
+        {
+            // Envoie la requête PATCH avec le contenu converti en JSON
+            HttpResponseMessage reponse = await client.PatchAsJsonAsync( route, contenu, cancellationToken);
+
+            // Si l'API retourne une erreur HTTP
+            if (!reponse.IsSuccessStatusCode)
+            {
+                // Gestion de l'erreur
+                await gestionnaireErreurApi.GererErreurHttpAsync(reponse);
+                return default;
+            }
+
+            // Désérialise le JSON de la réponse vers le type TReponse
+            return await reponse.Content.ReadFromJsonAsync<TReponse>(cancellationToken);
+        }
     }
 }

@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             tlpStock = new TableLayoutPanel();
-            tpStock = new TabControl();
-            tbStock = new TabPage();
+            tcStock = new TabControl();
+            tpStock = new TabPage();
             tlpTcStock = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             btnCRUD = new Button();
@@ -65,22 +65,45 @@
             colQuantite = new DataGridViewTextBoxColumn();
             colCategorie = new DataGridViewTextBoxColumn();
             colDetails = new DataGridViewTextBoxColumn();
-            tbListePrep = new TabPage();
+            tpListePrep = new TabPage();
             tlpListePrep = new TableLayoutPanel();
             dgvListePrep = new DataGridView();
+            colIdCommande = new DataGridViewTextBoxColumn();
+            colDate = new DataGridViewTextBoxColumn();
+            colNombreArticles = new DataGridViewTextBoxColumn();
+            colQuantiteTotale = new DataGridViewTextBoxColumn();
             btnPreparer = new Button();
-            tpStatut = new TabPage();
+            tpPrep = new TabPage();
             tlpPrep = new TableLayoutPanel();
             dgvPrep = new DataGridView();
+            ProduitId = new DataGridViewTextBoxColumn();
+            Produit = new DataGridViewTextBoxColumn();
+            colQuantitePrep = new DataGridViewTextBoxColumn();
+            colRecupere = new DataGridViewCheckBoxColumn();
             btnAnnulerPrep = new Button();
             btnValiderPrep = new Button();
             tpCmdStatut = new TabPage();
+            tlpdgvCmdStatut = new TableLayoutPanel();
             dgvCmdStatut = new DataGridView();
+            colIdCmdStatut = new DataGridViewTextBoxColumn();
+            colDateCmdStatut = new DataGridViewTextBoxColumn();
+            colStatutCmd = new DataGridViewTextBoxColumn();
+            colNbArticlesCmdStatut = new DataGridViewTextBoxColumn();
+            colQuantiteCmdStatut = new DataGridViewTextBoxColumn();
+            tlpSelectStatut = new TableLayoutPanel();
+            btnModifierStatut = new Button();
+            lblModifierStatut = new Label();
+            cbFiltreStatut = new ComboBox();
+            cbModifierStatut = new ComboBox();
+            lblFiltres = new Label();
             lblStock = new Label();
             bsProduit = new BindingSource(components);
+            bsCommandesAPrep = new BindingSource(components);
+            bsPreparation = new BindingSource(components);
+            bsCmdStatut = new BindingSource(components);
             tlpStock.SuspendLayout();
+            tcStock.SuspendLayout();
             tpStock.SuspendLayout();
-            tbStock.SuspendLayout();
             tlpTcStock.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tlpFormulaire.SuspendLayout();
@@ -90,15 +113,20 @@
             flpFormulaireHG.SuspendLayout();
             flpFormulaireBG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStock).BeginInit();
-            tbListePrep.SuspendLayout();
+            tpListePrep.SuspendLayout();
             tlpListePrep.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvListePrep).BeginInit();
-            tpStatut.SuspendLayout();
+            tpPrep.SuspendLayout();
             tlpPrep.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvPrep).BeginInit();
             tpCmdStatut.SuspendLayout();
+            tlpdgvCmdStatut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCmdStatut).BeginInit();
+            tlpSelectStatut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsProduit).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommandesAPrep).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsPreparation).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsCmdStatut).BeginInit();
             SuspendLayout();
             // 
             // tlpStock
@@ -108,41 +136,45 @@
             tlpStock.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.617811F));
             tlpStock.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 92.76438F));
             tlpStock.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.617809F));
-            tlpStock.Controls.Add(tpStock, 1, 1);
+            tlpStock.Controls.Add(tcStock, 1, 1);
             tlpStock.Controls.Add(lblStock, 1, 0);
             tlpStock.Dock = DockStyle.Fill;
             tlpStock.Location = new Point(0, 0);
             tlpStock.Name = "tlpStock";
+            tlpStock.RightToLeft = RightToLeft.Yes;
             tlpStock.RowCount = 3;
             tlpStock.RowStyles.Add(new RowStyle());
             tlpStock.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpStock.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tlpStock.Size = new Size(1144, 562);
+            tlpStock.Size = new Size(941, 594);
             tlpStock.TabIndex = 0;
+            // 
+            // tcStock
+            // 
+            tcStock.Controls.Add(tpStock);
+            tcStock.Controls.Add(tpListePrep);
+            tcStock.Controls.Add(tpPrep);
+            tcStock.Controls.Add(tpCmdStatut);
+            tcStock.Dock = DockStyle.Fill;
+            tcStock.Location = new Point(38, 49);
+            tcStock.Name = "tcStock";
+            tcStock.RightToLeft = RightToLeft.No;
+            tcStock.SelectedIndex = 0;
+            tcStock.Size = new Size(866, 492);
+            tcStock.TabIndex = 0;
+            tcStock.Selecting += tcStock_Selecting;
+            tcStock.Selected += tpStock_Selected;
             // 
             // tpStock
             // 
-            tpStock.Controls.Add(tbStock);
-            tpStock.Controls.Add(tbListePrep);
-            tpStock.Controls.Add(tpStatut);
-            tpStock.Controls.Add(tpCmdStatut);
-            tpStock.Dock = DockStyle.Fill;
-            tpStock.Location = new Point(44, 49);
+            tpStock.Controls.Add(tlpTcStock);
+            tpStock.Location = new Point(4, 29);
             tpStock.Name = "tpStock";
-            tpStock.SelectedIndex = 0;
-            tpStock.Size = new Size(1055, 460);
+            tpStock.Padding = new Padding(3);
+            tpStock.Size = new Size(858, 459);
             tpStock.TabIndex = 0;
-            // 
-            // tbStock
-            // 
-            tbStock.Controls.Add(tlpTcStock);
-            tbStock.Location = new Point(4, 29);
-            tbStock.Name = "tbStock";
-            tbStock.Padding = new Padding(3);
-            tbStock.Size = new Size(1047, 427);
-            tbStock.TabIndex = 0;
-            tbStock.Text = "Stock";
-            tbStock.UseVisualStyleBackColor = true;
+            tpStock.Text = "Stock";
+            tpStock.UseVisualStyleBackColor = true;
             // 
             // tlpTcStock
             // 
@@ -158,7 +190,7 @@
             tlpTcStock.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tlpTcStock.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpTcStock.RowStyles.Add(new RowStyle());
-            tlpTcStock.Size = new Size(1041, 421);
+            tlpTcStock.Size = new Size(852, 453);
             tlpTcStock.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -178,7 +210,7 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.Size = new Size(1035, 54);
+            tableLayoutPanel2.Size = new Size(846, 54);
             tableLayoutPanel2.TabIndex = 4;
             // 
             // btnCRUD
@@ -193,7 +225,7 @@
             // 
             // btnQte
             // 
-            btnQte.Location = new Point(972, 23);
+            btnQte.Location = new Point(783, 23);
             btnQte.Name = "btnQte";
             btnQte.Size = new Size(60, 32);
             btnQte.TabIndex = 0;
@@ -203,7 +235,7 @@
             // lblQte
             // 
             lblQte.AutoSize = true;
-            lblQte.Location = new Point(878, 0);
+            lblQte.Location = new Point(689, 0);
             lblQte.Name = "lblQte";
             lblQte.Size = new Size(33, 20);
             lblQte.TabIndex = 2;
@@ -211,7 +243,7 @@
             // 
             // txtbQte
             // 
-            txtbQte.Location = new Point(878, 23);
+            txtbQte.Location = new Point(689, 23);
             txtbQte.Name = "txtbQte";
             txtbQte.Size = new Size(88, 27);
             txtbQte.TabIndex = 1;
@@ -224,11 +256,11 @@
             tlpFormulaire.Controls.Add(tlpFomulaire2, 1, 0);
             tlpFormulaire.Controls.Add(tlpFormulaireG, 0, 0);
             tlpFormulaire.Dock = DockStyle.Fill;
-            tlpFormulaire.Location = new Point(3, 94);
+            tlpFormulaire.Location = new Point(3, 126);
             tlpFormulaire.Name = "tlpFormulaire";
             tlpFormulaire.RowCount = 1;
             tlpFormulaire.RowStyles.Add(new RowStyle());
-            tlpFormulaire.Size = new Size(1035, 324);
+            tlpFormulaire.Size = new Size(846, 324);
             tlpFormulaire.TabIndex = 3;
             // 
             // tlpFomulaire2
@@ -238,12 +270,13 @@
             tlpFomulaire2.Controls.Add(txtbDescription, 0, 1);
             tlpFomulaire2.Controls.Add(flpFormulaire2, 0, 0);
             tlpFomulaire2.Dock = DockStyle.Fill;
-            tlpFomulaire2.Location = new Point(520, 3);
+            tlpFomulaire2.Location = new Point(426, 3);
             tlpFomulaire2.Name = "tlpFomulaire2";
+            tlpFomulaire2.RightToLeft = RightToLeft.No;
             tlpFomulaire2.RowCount = 2;
             tlpFomulaire2.RowStyles.Add(new RowStyle());
             tlpFomulaire2.RowStyles.Add(new RowStyle());
-            tlpFomulaire2.Size = new Size(512, 318);
+            tlpFomulaire2.Size = new Size(417, 318);
             tlpFomulaire2.TabIndex = 1;
             // 
             // txtbDescription
@@ -253,7 +286,7 @@
             txtbDescription.Multiline = true;
             txtbDescription.Name = "txtbDescription";
             txtbDescription.ScrollBars = ScrollBars.Vertical;
-            txtbDescription.Size = new Size(506, 232);
+            txtbDescription.Size = new Size(411, 232);
             txtbDescription.TabIndex = 5;
             // 
             // flpFormulaire2
@@ -266,7 +299,7 @@
             flpFormulaire2.FlowDirection = FlowDirection.TopDown;
             flpFormulaire2.Location = new Point(3, 3);
             flpFormulaire2.Name = "flpFormulaire2";
-            flpFormulaire2.Size = new Size(506, 74);
+            flpFormulaire2.Size = new Size(411, 74);
             flpFormulaire2.TabIndex = 2;
             // 
             // lblcategorie
@@ -304,10 +337,11 @@
             tlpFormulaireG.Dock = DockStyle.Fill;
             tlpFormulaireG.Location = new Point(3, 3);
             tlpFormulaireG.Name = "tlpFormulaireG";
+            tlpFormulaireG.RightToLeft = RightToLeft.No;
             tlpFormulaireG.RowCount = 2;
             tlpFormulaireG.RowStyles.Add(new RowStyle());
             tlpFormulaireG.RowStyles.Add(new RowStyle());
-            tlpFormulaireG.Size = new Size(511, 318);
+            tlpFormulaireG.Size = new Size(417, 318);
             tlpFormulaireG.TabIndex = 2;
             // 
             // flpFormulaireHG
@@ -325,7 +359,8 @@
             flpFormulaireHG.FlowDirection = FlowDirection.TopDown;
             flpFormulaireHG.Location = new Point(3, 3);
             flpFormulaireHG.Name = "flpFormulaireHG";
-            flpFormulaireHG.Size = new Size(505, 212);
+            flpFormulaireHG.RightToLeft = RightToLeft.No;
+            flpFormulaireHG.Size = new Size(411, 212);
             flpFormulaireHG.TabIndex = 1;
             // 
             // lblNom
@@ -402,7 +437,7 @@
             flpFormulaireBG.Dock = DockStyle.Fill;
             flpFormulaireBG.Location = new Point(3, 221);
             flpFormulaireBG.Name = "flpFormulaireBG";
-            flpFormulaireBG.Size = new Size(505, 97);
+            flpFormulaireBG.Size = new Size(411, 97);
             flpFormulaireBG.TabIndex = 2;
             // 
             // btnAjouterProduit
@@ -435,15 +470,19 @@
             // dgvStock
             // 
             dgvStock.AllowUserToAddRows = false;
+            dgvStock.AllowUserToDeleteRows = false;
+            dgvStock.AllowUserToResizeColumns = false;
+            dgvStock.AllowUserToResizeRows = false;
             dgvStock.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvStock.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStock.Columns.AddRange(new DataGridViewColumn[] { colId, colNom, colQuantite, colCategorie, colDetails });
             dgvStock.Dock = DockStyle.Fill;
             dgvStock.Location = new Point(3, 63);
             dgvStock.Name = "dgvStock";
+            dgvStock.RightToLeft = RightToLeft.No;
             dgvStock.RowHeadersVisible = false;
             dgvStock.RowHeadersWidth = 51;
-            dgvStock.Size = new Size(1035, 25);
+            dgvStock.Size = new Size(846, 57);
             dgvStock.TabIndex = 1;
             dgvStock.CellClick += dgvStock_CellClick;
             dgvStock.RowPostPaint += dgvStock_RowPostPaint;
@@ -493,16 +532,16 @@
             colDetails.Resizable = DataGridViewTriState.False;
             colDetails.Width = 35;
             // 
-            // tbListePrep
+            // tpListePrep
             // 
-            tbListePrep.Controls.Add(tlpListePrep);
-            tbListePrep.Location = new Point(4, 29);
-            tbListePrep.Name = "tbListePrep";
-            tbListePrep.Padding = new Padding(3);
-            tbListePrep.Size = new Size(1047, 427);
-            tbListePrep.TabIndex = 1;
-            tbListePrep.Text = "Liste Préparation";
-            tbListePrep.UseVisualStyleBackColor = true;
+            tpListePrep.Controls.Add(tlpListePrep);
+            tpListePrep.Location = new Point(4, 29);
+            tpListePrep.Name = "tpListePrep";
+            tpListePrep.Padding = new Padding(3);
+            tpListePrep.Size = new Size(858, 459);
+            tpListePrep.TabIndex = 1;
+            tpListePrep.Text = "Liste Préparation";
+            tpListePrep.UseVisualStyleBackColor = true;
             // 
             // tlpListePrep
             // 
@@ -517,39 +556,82 @@
             tlpListePrep.RowCount = 2;
             tlpListePrep.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpListePrep.RowStyles.Add(new RowStyle());
-            tlpListePrep.Size = new Size(1041, 421);
+            tlpListePrep.Size = new Size(852, 453);
             tlpListePrep.TabIndex = 0;
             // 
             // dgvListePrep
             // 
+            dgvListePrep.AllowUserToAddRows = false;
+            dgvListePrep.AllowUserToDeleteRows = false;
+            dgvListePrep.AllowUserToResizeColumns = false;
+            dgvListePrep.AllowUserToResizeRows = false;
+            dgvListePrep.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvListePrep.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvListePrep.Columns.AddRange(new DataGridViewColumn[] { colIdCommande, colDate, colNombreArticles, colQuantiteTotale });
             tlpListePrep.SetColumnSpan(dgvListePrep, 2);
             dgvListePrep.Dock = DockStyle.Fill;
             dgvListePrep.Location = new Point(3, 3);
+            dgvListePrep.MultiSelect = false;
             dgvListePrep.Name = "dgvListePrep";
+            dgvListePrep.ReadOnly = true;
+            dgvListePrep.RowHeadersVisible = false;
             dgvListePrep.RowHeadersWidth = 51;
-            dgvListePrep.Size = new Size(1035, 318);
+            dgvListePrep.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvListePrep.Size = new Size(846, 350);
             dgvListePrep.TabIndex = 0;
+            // 
+            // colIdCommande
+            // 
+            colIdCommande.DataPropertyName = "Id";
+            colIdCommande.HeaderText = "Id";
+            colIdCommande.MinimumWidth = 6;
+            colIdCommande.Name = "colIdCommande";
+            colIdCommande.ReadOnly = true;
+            // 
+            // colDate
+            // 
+            colDate.DataPropertyName = "Date";
+            colDate.HeaderText = "Date";
+            colDate.MinimumWidth = 6;
+            colDate.Name = "colDate";
+            colDate.ReadOnly = true;
+            // 
+            // colNombreArticles
+            // 
+            colNombreArticles.DataPropertyName = "NombreArticles";
+            colNombreArticles.HeaderText = "Nb articles";
+            colNombreArticles.MinimumWidth = 6;
+            colNombreArticles.Name = "colNombreArticles";
+            colNombreArticles.ReadOnly = true;
+            // 
+            // colQuantiteTotale
+            // 
+            colQuantiteTotale.DataPropertyName = "QuantiteTotale";
+            colQuantiteTotale.HeaderText = "Quantité totale";
+            colQuantiteTotale.MinimumWidth = 6;
+            colQuantiteTotale.Name = "colQuantiteTotale";
+            colQuantiteTotale.ReadOnly = true;
             // 
             // btnPreparer
             // 
-            btnPreparer.Location = new Point(944, 327);
+            btnPreparer.Location = new Point(755, 359);
             btnPreparer.Name = "btnPreparer";
             btnPreparer.Size = new Size(94, 91);
             btnPreparer.TabIndex = 1;
             btnPreparer.Text = "Préparer";
             btnPreparer.UseVisualStyleBackColor = true;
+            btnPreparer.Click += btnPreparer_Click;
             // 
-            // tpStatut
+            // tpPrep
             // 
-            tpStatut.Controls.Add(tlpPrep);
-            tpStatut.Location = new Point(4, 29);
-            tpStatut.Name = "tpStatut";
-            tpStatut.Padding = new Padding(3);
-            tpStatut.Size = new Size(1047, 427);
-            tpStatut.TabIndex = 2;
-            tpStatut.Text = "Préparation";
-            tpStatut.UseVisualStyleBackColor = true;
+            tpPrep.Controls.Add(tlpPrep);
+            tpPrep.Location = new Point(4, 29);
+            tpPrep.Name = "tpPrep";
+            tpPrep.Padding = new Padding(3);
+            tpPrep.Size = new Size(858, 459);
+            tpPrep.TabIndex = 2;
+            tpPrep.Text = "Préparation";
+            tpPrep.UseVisualStyleBackColor = true;
             // 
             // tlpPrep
             // 
@@ -566,65 +648,256 @@
             tlpPrep.RowCount = 2;
             tlpPrep.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpPrep.RowStyles.Add(new RowStyle());
-            tlpPrep.Size = new Size(1041, 421);
+            tlpPrep.Size = new Size(852, 453);
             tlpPrep.TabIndex = 0;
             // 
             // dgvPrep
             // 
+            dgvPrep.AllowUserToAddRows = false;
+            dgvPrep.AllowUserToDeleteRows = false;
+            dgvPrep.AllowUserToResizeColumns = false;
+            dgvPrep.AllowUserToResizeRows = false;
+            dgvPrep.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPrep.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPrep.Columns.AddRange(new DataGridViewColumn[] { ProduitId, Produit, colQuantitePrep, colRecupere });
             tlpPrep.SetColumnSpan(dgvPrep, 3);
             dgvPrep.Dock = DockStyle.Fill;
             dgvPrep.Location = new Point(3, 3);
             dgvPrep.Name = "dgvPrep";
+            dgvPrep.RowHeadersVisible = false;
             dgvPrep.RowHeadersWidth = 51;
-            dgvPrep.Size = new Size(1035, 318);
+            dgvPrep.Size = new Size(846, 350);
             dgvPrep.TabIndex = 0;
+            dgvPrep.CellValueChanged += dgvPrep_CellValueChanged;
+            dgvPrep.CurrentCellDirtyStateChanged += dgvPrep_CurrentCellDirtyStateChanged;
+            // 
+            // ProduitId
+            // 
+            ProduitId.DataPropertyName = "ProduitId";
+            ProduitId.HeaderText = "ProduitId";
+            ProduitId.MinimumWidth = 6;
+            ProduitId.Name = "ProduitId";
+            ProduitId.ReadOnly = true;
+            // 
+            // Produit
+            // 
+            Produit.DataPropertyName = "NomProduit";
+            Produit.HeaderText = "Produit";
+            Produit.MinimumWidth = 6;
+            Produit.Name = "Produit";
+            Produit.ReadOnly = true;
+            // 
+            // colQuantitePrep
+            // 
+            colQuantitePrep.DataPropertyName = "Quantite";
+            colQuantitePrep.HeaderText = "Quantité";
+            colQuantitePrep.MinimumWidth = 6;
+            colQuantitePrep.Name = "colQuantitePrep";
+            colQuantitePrep.ReadOnly = true;
+            // 
+            // colRecupere
+            // 
+            colRecupere.HeaderText = "Récupéré";
+            colRecupere.MinimumWidth = 6;
+            colRecupere.Name = "colRecupere";
+            colRecupere.Resizable = DataGridViewTriState.True;
+            colRecupere.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // btnAnnulerPrep
             // 
-            btnAnnulerPrep.Location = new Point(3, 327);
+            btnAnnulerPrep.Location = new Point(3, 359);
             btnAnnulerPrep.Name = "btnAnnulerPrep";
             btnAnnulerPrep.Size = new Size(94, 91);
             btnAnnulerPrep.TabIndex = 1;
             btnAnnulerPrep.Text = "Annuler";
             btnAnnulerPrep.UseVisualStyleBackColor = true;
+            btnAnnulerPrep.Click += btnAnnulerPrep_Click;
             // 
             // btnValiderPrep
             // 
-            btnValiderPrep.Location = new Point(944, 327);
+            btnValiderPrep.Location = new Point(755, 359);
             btnValiderPrep.Name = "btnValiderPrep";
             btnValiderPrep.Size = new Size(94, 91);
             btnValiderPrep.TabIndex = 2;
             btnValiderPrep.Text = "Valider";
             btnValiderPrep.UseVisualStyleBackColor = true;
+            btnValiderPrep.Click += btnValiderPrep_Click;
             // 
             // tpCmdStatut
             // 
-            tpCmdStatut.Controls.Add(dgvCmdStatut);
+            tpCmdStatut.Controls.Add(tlpdgvCmdStatut);
             tpCmdStatut.Location = new Point(4, 29);
             tpCmdStatut.Name = "tpCmdStatut";
             tpCmdStatut.Padding = new Padding(3);
-            tpCmdStatut.Size = new Size(1047, 427);
+            tpCmdStatut.Size = new Size(858, 459);
             tpCmdStatut.TabIndex = 3;
             tpCmdStatut.Text = "CmdStatut";
             tpCmdStatut.UseVisualStyleBackColor = true;
             // 
+            // tlpdgvCmdStatut
+            // 
+            tlpdgvCmdStatut.AutoSize = true;
+            tlpdgvCmdStatut.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tlpdgvCmdStatut.ColumnCount = 1;
+            tlpdgvCmdStatut.ColumnStyles.Add(new ColumnStyle());
+            tlpdgvCmdStatut.Controls.Add(dgvCmdStatut, 0, 1);
+            tlpdgvCmdStatut.Controls.Add(tlpSelectStatut, 0, 0);
+            tlpdgvCmdStatut.Dock = DockStyle.Fill;
+            tlpdgvCmdStatut.Location = new Point(3, 3);
+            tlpdgvCmdStatut.Name = "tlpdgvCmdStatut";
+            tlpdgvCmdStatut.RightToLeft = RightToLeft.No;
+            tlpdgvCmdStatut.RowCount = 2;
+            tlpdgvCmdStatut.RowStyles.Add(new RowStyle());
+            tlpdgvCmdStatut.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpdgvCmdStatut.Size = new Size(852, 453);
+            tlpdgvCmdStatut.TabIndex = 0;
+            // 
             // dgvCmdStatut
             // 
+            dgvCmdStatut.AllowUserToAddRows = false;
+            dgvCmdStatut.AllowUserToDeleteRows = false;
+            dgvCmdStatut.AllowUserToResizeRows = false;
+            dgvCmdStatut.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCmdStatut.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCmdStatut.Columns.AddRange(new DataGridViewColumn[] { colIdCmdStatut, colDateCmdStatut, colStatutCmd, colNbArticlesCmdStatut, colQuantiteCmdStatut });
             dgvCmdStatut.Dock = DockStyle.Fill;
-            dgvCmdStatut.Location = new Point(3, 3);
+            dgvCmdStatut.Location = new Point(3, 44);
+            dgvCmdStatut.MultiSelect = false;
             dgvCmdStatut.Name = "dgvCmdStatut";
+            dgvCmdStatut.ReadOnly = true;
+            dgvCmdStatut.RightToLeft = RightToLeft.No;
+            dgvCmdStatut.RowHeadersVisible = false;
             dgvCmdStatut.RowHeadersWidth = 51;
-            dgvCmdStatut.Size = new Size(1041, 421);
-            dgvCmdStatut.TabIndex = 0;
+            dgvCmdStatut.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCmdStatut.Size = new Size(846, 406);
+            dgvCmdStatut.TabIndex = 4;
+            // 
+            // colIdCmdStatut
+            // 
+            colIdCmdStatut.DataPropertyName = "Id";
+            colIdCmdStatut.FillWeight = 20.76547F;
+            colIdCmdStatut.HeaderText = "Id";
+            colIdCmdStatut.MinimumWidth = 31;
+            colIdCmdStatut.Name = "colIdCmdStatut";
+            colIdCmdStatut.ReadOnly = true;
+            // 
+            // colDateCmdStatut
+            // 
+            colDateCmdStatut.DataPropertyName = "Date";
+            colDateCmdStatut.FillWeight = 50.4959259F;
+            colDateCmdStatut.HeaderText = "Date";
+            colDateCmdStatut.MinimumWidth = 6;
+            colDateCmdStatut.Name = "colDateCmdStatut";
+            colDateCmdStatut.ReadOnly = true;
+            // 
+            // colStatutCmd
+            // 
+            colStatutCmd.DataPropertyName = "Statut";
+            colStatutCmd.FillWeight = 77.82992F;
+            colStatutCmd.HeaderText = "Statut";
+            colStatutCmd.MinimumWidth = 6;
+            colStatutCmd.Name = "colStatutCmd";
+            colStatutCmd.ReadOnly = true;
+            // 
+            // colNbArticlesCmdStatut
+            // 
+            colNbArticlesCmdStatut.DataPropertyName = "NombreArticles";
+            colNbArticlesCmdStatut.FillWeight = 141.943878F;
+            colNbArticlesCmdStatut.HeaderText = "Nb Articles";
+            colNbArticlesCmdStatut.MinimumWidth = 6;
+            colNbArticlesCmdStatut.Name = "colNbArticlesCmdStatut";
+            colNbArticlesCmdStatut.ReadOnly = true;
+            // 
+            // colQuantiteCmdStatut
+            // 
+            colQuantiteCmdStatut.DataPropertyName = "QuantiteTotale";
+            colQuantiteCmdStatut.FillWeight = 208.9648F;
+            colQuantiteCmdStatut.HeaderText = "Quantite Totale";
+            colQuantiteCmdStatut.MinimumWidth = 6;
+            colQuantiteCmdStatut.Name = "colQuantiteCmdStatut";
+            colQuantiteCmdStatut.ReadOnly = true;
+            // 
+            // tlpSelectStatut
+            // 
+            tlpSelectStatut.AutoSize = true;
+            tlpSelectStatut.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tlpSelectStatut.ColumnCount = 6;
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle());
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle());
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle());
+            tlpSelectStatut.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 140F));
+            tlpSelectStatut.Controls.Add(btnModifierStatut, 2, 0);
+            tlpSelectStatut.Controls.Add(lblModifierStatut, 0, 0);
+            tlpSelectStatut.Controls.Add(cbFiltreStatut, 5, 0);
+            tlpSelectStatut.Controls.Add(cbModifierStatut, 1, 0);
+            tlpSelectStatut.Controls.Add(lblFiltres, 4, 0);
+            tlpSelectStatut.Dock = DockStyle.Fill;
+            tlpSelectStatut.Location = new Point(3, 3);
+            tlpSelectStatut.Name = "tlpSelectStatut";
+            tlpSelectStatut.RowCount = 1;
+            tlpSelectStatut.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpSelectStatut.Size = new Size(846, 35);
+            tlpSelectStatut.TabIndex = 3;
+            tlpSelectStatut.Paint += tlpSelectStatut_Paint;
+            // 
+            // btnModifierStatut
+            // 
+            btnModifierStatut.Anchor = AnchorStyles.None;
+            btnModifierStatut.Location = new Point(265, 3);
+            btnModifierStatut.Name = "btnModifierStatut";
+            btnModifierStatut.Size = new Size(94, 29);
+            btnModifierStatut.TabIndex = 5;
+            btnModifierStatut.Text = "Modifier";
+            btnModifierStatut.UseVisualStyleBackColor = true;
+            btnModifierStatut.Click += btnModifierStatut_Click;
+            // 
+            // lblModifierStatut
+            // 
+            lblModifierStatut.Anchor = AnchorStyles.None;
+            lblModifierStatut.Location = new Point(3, 7);
+            lblModifierStatut.Name = "lblModifierStatut";
+            lblModifierStatut.Size = new Size(116, 20);
+            lblModifierStatut.TabIndex = 4;
+            lblModifierStatut.Text = "Nouveau statut :";
+            // 
+            // cbFiltreStatut
+            // 
+            cbFiltreStatut.Dock = DockStyle.Fill;
+            cbFiltreStatut.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFiltreStatut.FormattingEnabled = true;
+            cbFiltreStatut.Location = new Point(709, 3);
+            cbFiltreStatut.Name = "cbFiltreStatut";
+            cbFiltreStatut.Size = new Size(134, 28);
+            cbFiltreStatut.TabIndex = 1;
+            cbFiltreStatut.SelectedIndexChanged += cbFiltreStatut_SelectedIndexChanged;
+            // 
+            // cbModifierStatut
+            // 
+            cbModifierStatut.Dock = DockStyle.Fill;
+            cbModifierStatut.FormattingEnabled = true;
+            cbModifierStatut.Location = new Point(125, 3);
+            cbModifierStatut.Name = "cbModifierStatut";
+            cbModifierStatut.RightToLeft = RightToLeft.No;
+            cbModifierStatut.Size = new Size(134, 28);
+            cbModifierStatut.TabIndex = 3;
+            // 
+            // lblFiltres
+            // 
+            lblFiltres.Anchor = AnchorStyles.None;
+            lblFiltres.Location = new Point(648, 7);
+            lblFiltres.Name = "lblFiltres";
+            lblFiltres.Size = new Size(55, 20);
+            lblFiltres.TabIndex = 2;
+            lblFiltres.Text = "Statut :";
             // 
             // lblStock
             // 
             lblStock.Anchor = AnchorStyles.None;
             lblStock.AutoSize = true;
             lblStock.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblStock.Location = new Point(444, 0);
+            lblStock.Location = new Point(344, 0);
             lblStock.Name = "lblStock";
             lblStock.Size = new Size(255, 46);
             lblStock.TabIndex = 1;
@@ -635,16 +908,16 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1144, 562);
+            ClientSize = new Size(941, 594);
             Controls.Add(tlpStock);
-            MinimumSize = new Size(736, 575);
+            MinimumSize = new Size(959, 641);
             Name = "Stock";
             Text = "Stock";
             Load += Stock_Load;
             tlpStock.ResumeLayout(false);
             tlpStock.PerformLayout();
+            tcStock.ResumeLayout(false);
             tpStock.ResumeLayout(false);
-            tbStock.ResumeLayout(false);
             tlpTcStock.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
@@ -659,24 +932,31 @@
             flpFormulaireHG.PerformLayout();
             flpFormulaireBG.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvStock).EndInit();
-            tbListePrep.ResumeLayout(false);
+            tpListePrep.ResumeLayout(false);
             tlpListePrep.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvListePrep).EndInit();
-            tpStatut.ResumeLayout(false);
+            tpPrep.ResumeLayout(false);
             tlpPrep.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvPrep).EndInit();
             tpCmdStatut.ResumeLayout(false);
+            tpCmdStatut.PerformLayout();
+            tlpdgvCmdStatut.ResumeLayout(false);
+            tlpdgvCmdStatut.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCmdStatut).EndInit();
+            tlpSelectStatut.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)bsProduit).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommandesAPrep).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsPreparation).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsCmdStatut).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private TableLayoutPanel tlpStock;
-        private TabControl tpStock;
-        private TabPage tbStock;
-        private TabPage tbListePrep;
+        private TabControl tcStock;
+        private TabPage tpStock;
+        private TabPage tpListePrep;
         private Label lblStock;
         private TableLayoutPanel tlpTcStock;
         private DataGridView dgvStock;
@@ -709,18 +989,41 @@
         private TableLayoutPanel tlpListePrep;
         private Button btnPreparer;
         private DataGridView dgvListePrep;
-        private TabPage tpStatut;
+        private TabPage tpPrep;
         private TableLayoutPanel tlpPrep;
         private DataGridView dgvPrep;
         private Button btnAnnulerPrep;
         private Button btnValiderPrep;
         private TabPage tpCmdStatut;
-        private DataGridView dgvCmdStatut;
         private BindingSource bsProduit;
         private DataGridViewTextBoxColumn colId;
         private DataGridViewTextBoxColumn colNom;
         private DataGridViewTextBoxColumn colQuantite;
         private DataGridViewTextBoxColumn colCategorie;
         private DataGridViewTextBoxColumn colDetails;
+        private BindingSource bsCommandesAPrep;
+        private DataGridViewTextBoxColumn colIdCommande;
+        private DataGridViewTextBoxColumn colDate;
+        private DataGridViewTextBoxColumn colNombreArticles;
+        private DataGridViewTextBoxColumn colQuantiteTotale;
+        private BindingSource bsPreparation;
+        private DataGridViewTextBoxColumn ProduitId;
+        private DataGridViewTextBoxColumn Produit;
+        private DataGridViewTextBoxColumn colQuantitePrep;
+        private DataGridViewCheckBoxColumn colRecupere;
+        private BindingSource bsCmdStatut;
+        private TableLayoutPanel tlpdgvCmdStatut;
+        private TableLayoutPanel tlpSelectStatut;
+        private Button btnModifierStatut;
+        private Label lblModifierStatut;
+        private ComboBox cbFiltreStatut;
+        private ComboBox cbModifierStatut;
+        private Label lblFiltres;
+        private DataGridView dgvCmdStatut;
+        private DataGridViewTextBoxColumn colIdCmdStatut;
+        private DataGridViewTextBoxColumn colDateCmdStatut;
+        private DataGridViewTextBoxColumn colStatutCmd;
+        private DataGridViewTextBoxColumn colNbArticlesCmdStatut;
+        private DataGridViewTextBoxColumn colQuantiteCmdStatut;
     }
 }

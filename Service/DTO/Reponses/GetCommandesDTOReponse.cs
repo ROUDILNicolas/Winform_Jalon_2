@@ -1,4 +1,6 @@
-﻿namespace WinForms_Jalon_2.Service.DTO.Reponses
+﻿using WinForms_Jalon_2.Service.DTO.Enums;
+
+namespace WinForms_Jalon_2.Service.DTO.Reponses
 {
     public class GetCommandesDTOReponse
     {
@@ -13,8 +15,14 @@
 
         public int AdresseId { get; set; }
 
-        //public StatutCommande Statut { get; set; }
+        public int NombreArticles { get; set; }
+
+        public int QuantiteTotale { get; set; }
+
+        public StatutCommande Statut { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int Version { get; set; }
     }
 }

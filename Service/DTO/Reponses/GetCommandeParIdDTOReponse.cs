@@ -1,28 +1,28 @@
-﻿namespace WinForms_Jalon_2.Service.DTO.Reponses
+﻿using WinForms_Jalon_2.Service.DTO.Enums;
+
+namespace WinForms_Jalon_2.Service.DTO.Reponses
 {
     public class GetCommandeParIdDTOReponse
     {
         public int Id { get; set; }
-        
-        //public IEnumerable<GetLignesCommandeDTOReponse> LignesCommande { get; set; }
 
-        public int ClientId { get; set; }
+        public DateTime Date { get; set; }
 
-        public int AdresseId { get; set; }
-   
-        //public StatutCommande Statut { get; set; }
+        public IEnumerable<GetLignesCommandeDTOReponse> LignesCommande { get; set; }
 
-        public DateTime Date {  get; set; }
+        public int Version { get; set; }
     }
 
-    //public class GetLignesCommandeDTOReponse
-    //{
+    public class GetLignesCommandeDTOReponse
+    {
+        
+        public int ProduitId { get; set; }
+        
+        public string NomProduit { get; set; }
 
-    //    public Produit Produit { get; set; }
+        public int Quantite { get; set; }
 
-    //    public int Quantite { get; set; }
-
-    //    public StatutLigneCommande Statut { get; set; }
-    //}
+        public StatutLigneCommande Statut {  get; set; }
+    }
 
 }
