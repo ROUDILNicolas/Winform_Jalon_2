@@ -840,7 +840,6 @@
             tlpSelectStatut.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpSelectStatut.Size = new Size(846, 35);
             tlpSelectStatut.TabIndex = 3;
-            tlpSelectStatut.Paint += tlpSelectStatut_Paint;
             // 
             // btnModifierStatut
             // 

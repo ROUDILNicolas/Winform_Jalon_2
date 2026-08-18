@@ -28,26 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             lblStock = new Label();
             tlpEmballage = new TableLayoutPanel();
-            tbPreparation = new TabPage();
+            tcEmballage = new TabControl();
+            tpEmballage = new TabPage();
             tlpPreparation = new TableLayoutPanel();
+            dgvEmballage = new DataGridView();
+            colIdEmballage = new DataGridViewTextBoxColumn();
+            colDateEmballage = new DataGridViewTextBoxColumn();
+            colNbArticlesEmballage = new DataGridViewTextBoxColumn();
+            colQuantiteTotaleEmballage = new DataGridViewTextBoxColumn();
             btnEmballage = new Button();
-            dataGridView2 = new DataGridView();
-            tpEmballage = new TabControl();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            dgvCommande = new DataGridView();
-            btnAnnulerCommande = new Button();
-            btnValiderCommande = new Button();
             tpCommande = new TabPage();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            btnValiderCommande = new Button();
+            btnAnnulerCommande = new Button();
+            dgvCommande = new DataGridView();
+            colNomProduitCommande = new DataGridViewTextBoxColumn();
+            colProduitIdCommande = new DataGridViewTextBoxColumn();
+            colQuantiteCommande = new DataGridViewTextBoxColumn();
+            colEmballe = new DataGridViewCheckBoxColumn();
+            bsEmballage = new BindingSource(components);
+            bsCommande = new BindingSource(components);
             tlpEmballage.SuspendLayout();
-            tbPreparation.SuspendLayout();
-            tlpPreparation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            tcEmballage.SuspendLayout();
             tpEmballage.SuspendLayout();
+            tlpPreparation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEmballage).BeginInit();
+            tpCommande.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCommande).BeginInit();
-            tpCommande.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bsEmballage).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommande).BeginInit();
             SuspendLayout();
             // 
             // lblStock
@@ -55,7 +68,7 @@
             lblStock.Anchor = AnchorStyles.None;
             lblStock.AutoSize = true;
             lblStock.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
-            lblStock.Location = new Point(286, 0);
+            lblStock.Location = new Point(93, 0);
             lblStock.Name = "lblStock";
             lblStock.Size = new Size(533, 46);
             lblStock.TabIndex = 1;
@@ -69,7 +82,7 @@
             tlpEmballage.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.617811F));
             tlpEmballage.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 92.76438F));
             tlpEmballage.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.617809F));
-            tlpEmballage.Controls.Add(tpEmballage, 1, 1);
+            tlpEmballage.Controls.Add(tcEmballage, 1, 1);
             tlpEmballage.Controls.Add(lblStock, 1, 0);
             tlpEmballage.Dock = DockStyle.Fill;
             tlpEmballage.Location = new Point(0, 0);
@@ -78,26 +91,38 @@
             tlpEmballage.RowStyles.Add(new RowStyle());
             tlpEmballage.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpEmballage.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
-            tlpEmballage.Size = new Size(1106, 577);
+            tlpEmballage.Size = new Size(721, 577);
             tlpEmballage.TabIndex = 1;
             // 
-            // tbPreparation
+            // tcEmballage
             // 
-            tbPreparation.Controls.Add(tlpPreparation);
-            tbPreparation.Location = new Point(4, 29);
-            tbPreparation.Name = "tbPreparation";
-            tbPreparation.Padding = new Padding(3);
-            tbPreparation.Size = new Size(1011, 442);
-            tbPreparation.TabIndex = 1;
-            tbPreparation.Text = "Emballage";
-            tbPreparation.UseVisualStyleBackColor = true;
+            tcEmballage.Controls.Add(tpEmballage);
+            tcEmballage.Controls.Add(tpCommande);
+            tcEmballage.Dock = DockStyle.Fill;
+            tcEmballage.Location = new Point(29, 49);
+            tcEmballage.Name = "tcEmballage";
+            tcEmballage.SelectedIndex = 0;
+            tcEmballage.Size = new Size(662, 475);
+            tcEmballage.TabIndex = 0;
+            tcEmballage.Selected += tpEmballage_Selected;
+            // 
+            // tpEmballage
+            // 
+            tpEmballage.Controls.Add(tlpPreparation);
+            tpEmballage.Location = new Point(4, 29);
+            tpEmballage.Name = "tpEmballage";
+            tpEmballage.Padding = new Padding(3);
+            tpEmballage.Size = new Size(654, 442);
+            tpEmballage.TabIndex = 1;
+            tpEmballage.Text = "Emballage";
+            tpEmballage.UseVisualStyleBackColor = true;
             // 
             // tlpPreparation
             // 
             tlpPreparation.ColumnCount = 2;
             tlpPreparation.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tlpPreparation.ColumnStyles.Add(new ColumnStyle());
-            tlpPreparation.Controls.Add(dataGridView2, 0, 0);
+            tlpPreparation.Controls.Add(dgvEmballage, 0, 0);
             tlpPreparation.Controls.Add(btnEmballage, 1, 1);
             tlpPreparation.Dock = DockStyle.Fill;
             tlpPreparation.Location = new Point(3, 3);
@@ -105,39 +130,76 @@
             tlpPreparation.RowCount = 2;
             tlpPreparation.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpPreparation.RowStyles.Add(new RowStyle());
-            tlpPreparation.Size = new Size(1005, 436);
+            tlpPreparation.Size = new Size(648, 436);
             tlpPreparation.TabIndex = 1;
+            // 
+            // dgvEmballage
+            // 
+            dgvEmballage.AllowUserToAddRows = false;
+            dgvEmballage.AllowUserToDeleteRows = false;
+            dgvEmballage.AllowUserToResizeColumns = false;
+            dgvEmballage.AllowUserToResizeRows = false;
+            dgvEmballage.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEmballage.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmballage.Columns.AddRange(new DataGridViewColumn[] { colIdEmballage, colDateEmballage, colNbArticlesEmballage, colQuantiteTotaleEmballage });
+            tlpPreparation.SetColumnSpan(dgvEmballage, 2);
+            dgvEmballage.Dock = DockStyle.Fill;
+            dgvEmballage.Location = new Point(3, 3);
+            dgvEmballage.Name = "dgvEmballage";
+            dgvEmballage.RowHeadersVisible = false;
+            dgvEmballage.RowHeadersWidth = 51;
+            dgvEmballage.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEmballage.Size = new Size(642, 333);
+            dgvEmballage.TabIndex = 0;
+            // 
+            // colIdEmballage
+            // 
+            colIdEmballage.DataPropertyName = "Id";
+            colIdEmballage.HeaderText = "Id";
+            colIdEmballage.MinimumWidth = 6;
+            colIdEmballage.Name = "colIdEmballage";
+            // 
+            // colDateEmballage
+            // 
+            colDateEmballage.DataPropertyName = "Date";
+            colDateEmballage.HeaderText = "Date";
+            colDateEmballage.MinimumWidth = 6;
+            colDateEmballage.Name = "colDateEmballage";
+            // 
+            // colNbArticlesEmballage
+            // 
+            colNbArticlesEmballage.DataPropertyName = "NombreArticles";
+            colNbArticlesEmballage.HeaderText = "Nb articles";
+            colNbArticlesEmballage.MinimumWidth = 6;
+            colNbArticlesEmballage.Name = "colNbArticlesEmballage";
+            // 
+            // colQuantiteTotaleEmballage
+            // 
+            colQuantiteTotaleEmballage.DataPropertyName = "QuantiteTotale";
+            colQuantiteTotaleEmballage.HeaderText = "Quantité totale";
+            colQuantiteTotaleEmballage.MinimumWidth = 6;
+            colQuantiteTotaleEmballage.Name = "colQuantiteTotaleEmballage";
             // 
             // btnEmballage
             // 
-            btnEmballage.Location = new Point(908, 342);
+            btnEmballage.Location = new Point(551, 342);
             btnEmballage.Name = "btnEmballage";
             btnEmballage.Size = new Size(94, 91);
             btnEmballage.TabIndex = 1;
             btnEmballage.Text = "Emballage";
             btnEmballage.UseVisualStyleBackColor = true;
+            btnEmballage.Click += btnEmballage_Click;
             // 
-            // dataGridView2
+            // tpCommande
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tlpPreparation.SetColumnSpan(dataGridView2, 2);
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 3);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(999, 333);
-            dataGridView2.TabIndex = 0;
-            // 
-            // tpEmballage
-            // 
-            tpEmballage.Controls.Add(tbPreparation);
-            tpEmballage.Controls.Add(tpCommande);
-            tpEmballage.Dock = DockStyle.Fill;
-            tpEmballage.Location = new Point(43, 49);
-            tpEmballage.Name = "tpEmballage";
-            tpEmballage.SelectedIndex = 0;
-            tpEmballage.Size = new Size(1019, 475);
-            tpEmballage.TabIndex = 0;
+            tpCommande.Controls.Add(tableLayoutPanel2);
+            tpCommande.Location = new Point(4, 29);
+            tpCommande.Name = "tpCommande";
+            tpCommande.Padding = new Padding(3);
+            tpCommande.Size = new Size(654, 442);
+            tpCommande.TabIndex = 3;
+            tpCommande.Text = "Commande";
+            tpCommande.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -154,19 +216,19 @@
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.Size = new Size(1005, 436);
+            tableLayoutPanel2.Size = new Size(648, 436);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // dgvCommande
+            // btnValiderCommande
             // 
-            dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tableLayoutPanel2.SetColumnSpan(dgvCommande, 2);
-            dgvCommande.Dock = DockStyle.Fill;
-            dgvCommande.Location = new Point(3, 3);
-            dgvCommande.Name = "dgvCommande";
-            dgvCommande.RowHeadersWidth = 51;
-            dgvCommande.Size = new Size(999, 356);
-            dgvCommande.TabIndex = 6;
+            btnValiderCommande.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnValiderCommande.Location = new Point(491, 365);
+            btnValiderCommande.Name = "btnValiderCommande";
+            btnValiderCommande.Size = new Size(154, 68);
+            btnValiderCommande.TabIndex = 3;
+            btnValiderCommande.Text = "Valider";
+            btnValiderCommande.UseVisualStyleBackColor = true;
+            btnValiderCommande.Click += btnValiderCommande_Click;
             // 
             // btnAnnulerCommande
             // 
@@ -177,44 +239,76 @@
             btnAnnulerCommande.Text = "Annuler";
             btnAnnulerCommande.UseVisualStyleBackColor = true;
             // 
-            // btnValiderCommande
+            // dgvCommande
             // 
-            btnValiderCommande.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnValiderCommande.Location = new Point(848, 365);
-            btnValiderCommande.Name = "btnValiderCommande";
-            btnValiderCommande.Size = new Size(154, 68);
-            btnValiderCommande.TabIndex = 3;
-            btnValiderCommande.Text = "Valider";
-            btnValiderCommande.UseVisualStyleBackColor = true;
+            dgvCommande.AllowUserToAddRows = false;
+            dgvCommande.AllowUserToDeleteRows = false;
+            dgvCommande.AllowUserToResizeColumns = false;
+            dgvCommande.AllowUserToResizeRows = false;
+            dgvCommande.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCommande.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCommande.Columns.AddRange(new DataGridViewColumn[] { colNomProduitCommande, colProduitIdCommande, colQuantiteCommande, colEmballe });
+            tableLayoutPanel2.SetColumnSpan(dgvCommande, 2);
+            dgvCommande.Dock = DockStyle.Fill;
+            dgvCommande.Location = new Point(3, 3);
+            dgvCommande.Name = "dgvCommande";
+            dgvCommande.RowHeadersWidth = 51;
+            dgvCommande.Size = new Size(642, 356);
+            dgvCommande.TabIndex = 6;
+            dgvCommande.CellValueChanged += dgvCommande_CellValueChanged;
+            dgvCommande.CurrentCellDirtyStateChanged += dgvCommande_CurrentCellDirtyStateChanged;
             // 
-            // tpCommande
+            // colNomProduitCommande
             // 
-            tpCommande.Controls.Add(tableLayoutPanel2);
-            tpCommande.Location = new Point(4, 29);
-            tpCommande.Name = "tpCommande";
-            tpCommande.Padding = new Padding(3);
-            tpCommande.Size = new Size(1011, 442);
-            tpCommande.TabIndex = 3;
-            tpCommande.Text = "Commande";
-            tpCommande.UseVisualStyleBackColor = true;
+            colNomProduitCommande.DataPropertyName = "NomProduit";
+            colNomProduitCommande.HeaderText = "Produit";
+            colNomProduitCommande.MinimumWidth = 6;
+            colNomProduitCommande.Name = "colNomProduitCommande";
+            // 
+            // colProduitIdCommande
+            // 
+            colProduitIdCommande.DataPropertyName = "ProduitId";
+            colProduitIdCommande.HeaderText = "ProduitId";
+            colProduitIdCommande.MinimumWidth = 6;
+            colProduitIdCommande.Name = "colProduitIdCommande";
+            colProduitIdCommande.Visible = false;
+            // 
+            // colQuantiteCommande
+            // 
+            colQuantiteCommande.DataPropertyName = "Quantite";
+            colQuantiteCommande.HeaderText = "Quantité";
+            colQuantiteCommande.MinimumWidth = 6;
+            colQuantiteCommande.Name = "colQuantiteCommande";
+            // 
+            // colEmballe
+            // 
+            colEmballe.HeaderText = "Emballé";
+            colEmballe.MinimumWidth = 6;
+            colEmballe.Name = "colEmballe";
+            colEmballe.Resizable = DataGridViewTriState.True;
+            colEmballe.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // Emballage
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1106, 577);
+            ClientSize = new Size(721, 577);
             Controls.Add(tlpEmballage);
+            MinimumSize = new Size(739, 624);
             Name = "Emballage";
             Text = "Emballage";
+            Load += Emballage_Load;
             tlpEmballage.ResumeLayout(false);
             tlpEmballage.PerformLayout();
-            tbPreparation.ResumeLayout(false);
-            tlpPreparation.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            tcEmballage.ResumeLayout(false);
             tpEmballage.ResumeLayout(false);
+            tlpPreparation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvEmballage).EndInit();
+            tpCommande.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCommande).EndInit();
-            tpCommande.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)bsEmballage).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bsCommande).EndInit();
             ResumeLayout(false);
         }
 
@@ -222,15 +316,25 @@
 
         private Label lblStock;
         private TableLayoutPanel tlpEmballage;
-        private TabControl tpEmballage;
-        private TabPage tbPreparation;
+        private TabControl tcEmballage;
+        private TabPage tpEmballage;
         private TableLayoutPanel tlpPreparation;
-        private DataGridView dataGridView2;
+        private DataGridView dgvEmballage;
         private Button btnEmballage;
         private TabPage tpCommande;
         private TableLayoutPanel tableLayoutPanel2;
         private Button btnValiderCommande;
         private Button btnAnnulerCommande;
         private DataGridView dgvCommande;
+        private BindingSource bsEmballage;
+        private BindingSource bsCommande;
+        private DataGridViewTextBoxColumn colIdEmballage;
+        private DataGridViewTextBoxColumn colDateEmballage;
+        private DataGridViewTextBoxColumn colNbArticlesEmballage;
+        private DataGridViewTextBoxColumn colQuantiteTotaleEmballage;
+        private DataGridViewTextBoxColumn colNomProduitCommande;
+        private DataGridViewTextBoxColumn colProduitIdCommande;
+        private DataGridViewTextBoxColumn colQuantiteCommande;
+        private DataGridViewCheckBoxColumn colEmballe;
     }
 }

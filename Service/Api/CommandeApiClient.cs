@@ -36,6 +36,11 @@ namespace WinForms_Jalon_2.Service.Api
             return await _serviceApi.GetAsync<GetCommandesDTOReponse>("Commande/en-preparation",cancellationToken);
         }
 
+        public async Task<GetCommandesDTOReponse?> GetCommandesAEmballerAsync(
+        CancellationToken cancellationToken)
+        {
+            return await _serviceApi.GetAsync<GetCommandesDTOReponse>("Commande/a-emballer", cancellationToken);
+        }
         public async Task<bool> PasserCommandeAEmballerAsync(int id, int version, CancellationToken cancellationToken)
         {
             ModifierStatutCommandeDTORequete requete = new()
@@ -44,6 +49,16 @@ namespace WinForms_Jalon_2.Service.Api
             };
 
             return await _serviceApi.PatchAsync($"Commande/{id}/a-emballer", requete, cancellationToken);
+        }
+
+        public async Task<bool> PasserCommandeEnAttenteEnvoiAsync(int id, int version, CancellationToken cancellationToken)
+        {
+            ModifierStatutCommandeDTORequete requete = new()
+            {
+                Version = version
+            };
+
+            return await _serviceApi.PatchAsync($"Commande/{id}/en-attente-envoi", requete, cancellationToken);
         }
 
         public async Task<GetCommandesDTOReponse?> GetCommandesGestionManagerAsync(CancellationToken cancellationToken)

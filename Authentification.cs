@@ -40,7 +40,7 @@ namespace WinForms_Jalon_2
             switch (employeConnecte.Role)
             {
                 case "PreparateurColis":
-                    Emballage emballage = new Emballage(employeConnecte);
+                    Emballage emballage = new Emballage(_serviceApi);
 
                     Hide();
                     emballage.ShowDialog();

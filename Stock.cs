@@ -93,8 +93,7 @@ namespace WinForms_Jalon_2
 
             dgvListePrep.BackgroundColor = Color.White;
 
-            _commandesListePrep =
-                new BindingList<GetCommandesItemDTOReponse>();
+            _commandesListePrep = new BindingList<GetCommandesItemDTOReponse>();
 
             bsCommandesAPrep.DataSource = _commandesListePrep;
             dgvListePrep.DataSource = bsCommandesAPrep;
@@ -758,9 +757,5 @@ namespace WinForms_Jalon_2
             }
         }
 
-        private void tlpSelectStatut_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
