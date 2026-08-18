@@ -12,6 +12,8 @@ namespace WinForms_Jalon_2
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Authentification());
+
+            //test push gitlab
         }
     }
 }
