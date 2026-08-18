@@ -13,7 +13,7 @@ namespace WinForms_Jalon_2
             ApplicationConfiguration.Initialize();
             Application.Run(new Authentification());
 
-            //test push gitlab
+            //test push gitlab + github
         }
     }
 }
