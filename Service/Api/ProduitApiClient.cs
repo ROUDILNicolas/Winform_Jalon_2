@@ -28,5 +28,10 @@ namespace WinForms_Jalon_2.Service.Api
         {
             return await _serviceApi.GetAsync<GetProduitParIdDTOReponse>($"Produit/{id}");
         }
+
+        public async Task<List<GetTypesProduitDTOReponse>?> GetTypesProduitAsync(CancellationToken cancellationToken)
+        {
+            return await _serviceApi.GetAsync<List<GetTypesProduitDTOReponse>>("Produit/types", cancellationToken);
+        }
     }
 }

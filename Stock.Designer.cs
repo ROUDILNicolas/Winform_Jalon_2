@@ -43,7 +43,7 @@
             txtbDescription = new TextBox();
             flpFormulaire2 = new FlowLayoutPanel();
             lblcategorie = new Label();
-            comboBox1 = new ComboBox();
+            cbFormuCategorie = new ComboBox();
             lblDescription = new Label();
             tlpFormulaireG = new TableLayoutPanel();
             flpFormulaireHG = new FlowLayoutPanel();
@@ -294,7 +294,7 @@
             flpFormulaire2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             flpFormulaire2.AutoSize = true;
             flpFormulaire2.Controls.Add(lblcategorie);
-            flpFormulaire2.Controls.Add(comboBox1);
+            flpFormulaire2.Controls.Add(cbFormuCategorie);
             flpFormulaire2.Controls.Add(lblDescription);
             flpFormulaire2.FlowDirection = FlowDirection.TopDown;
             flpFormulaire2.Location = new Point(3, 3);
@@ -311,13 +311,15 @@
             lblcategorie.TabIndex = 1;
             lblcategorie.Text = "Catégorie";
             // 
-            // comboBox1
+            // cbFormuCategorie
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(3, 23);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(206, 28);
-            comboBox1.TabIndex = 2;
+            cbFormuCategorie.DisplayMember = "Nom";
+            cbFormuCategorie.FormattingEnabled = true;
+            cbFormuCategorie.Location = new Point(3, 23);
+            cbFormuCategorie.Name = "cbFormuCategorie";
+            cbFormuCategorie.Size = new Size(206, 28);
+            cbFormuCategorie.TabIndex = 2;
+            cbFormuCategorie.ValueMember = "Id";
             // 
             // lblDescription
             // 
@@ -486,6 +488,7 @@
             dgvStock.TabIndex = 1;
             dgvStock.CellClick += dgvStock_CellClick;
             dgvStock.RowPostPaint += dgvStock_RowPostPaint;
+            dgvStock.SelectionChanged += dgvStock_SelectionChanged;
             // 
             // colId
             // 
@@ -968,7 +971,7 @@
         private TableLayoutPanel tlpFomulaire2;
         private FlowLayoutPanel flpFormulaire2;
         private Label lblcategorie;
-        private ComboBox comboBox1;
+        private ComboBox cbFormuCategorie;
         private Label lblDescription;
         private TextBox txtbDescription;
         private TableLayoutPanel tlpFormulaireG;

@@ -162,6 +162,17 @@ namespace WinForms_Jalon_2
             }
         }
 
+        private void RemplirFormulaireProduit(GetProduitsItemDTOReponse produit)
+        {
+            txtbNom.Text = produit.Nom;
+            txtbQuantite.Text = produit.Quantite.ToString();
+            txtbPA.Text = produit.PrixAchat.ToString("0.00");
+            txtbPV.Text = produit.PrixVente.ToString("0.00");
+            txtbDescription.Text = produit.Description;
+
+            cbFormuCategorie.SelectedValue = produit.TypeProduitId;
+        }
+
         private void VerifierPreparationComplete()
         {
             foreach (DataGridViewRow row in dgvPrep.Rows)
@@ -435,19 +446,25 @@ namespace WinForms_Jalon_2
 
             // Appel API pour Stock
 
-            GetProduitsDTOReponse? reponse =
-            await _produitApiClient.GetProduitsAsync(CancellationToken.None);
+            GetProduitsDTOReponse? reponseProduits = await _produitApiClient.GetProduitsAsync(CancellationToken.None);
 
-            if (reponse is null)
+            List<GetTypesProduitDTOReponse>? typesProduit = await _produitApiClient.GetTypesProduitAsync(CancellationToken.None);
+
+            if (reponseProduits is null || typesProduit is null)
             {
                 return;
             }
 
+            cbFormuCategorie.DataSource = typesProduit;
+            cbFormuCategorie.DisplayMember = "Libelle";
+            cbFormuCategorie.ValueMember = "Id";
+            cbFormuCategorie.SelectedIndex = -1;
+            
             // Remplir BindingList Stock
 
             _produits.Clear();
 
-            foreach (GetProduitsItemDTOReponse produit in reponse.Produits)
+            foreach (GetProduitsItemDTOReponse produit in reponseProduits.Produits)
             {
                 _produits.Add(produit);
             }
@@ -757,5 +774,14 @@ namespace WinForms_Jalon_2
             }
         }
 
+        private void dgvStock_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvStock.CurrentRow?.DataBoundItem is not GetProduitsItemDTOReponse produit)
+            {
+                return;
+            }
+
+            RemplirFormulaireProduit(produit);
+        }
     }
 }
