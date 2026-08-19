@@ -27,7 +27,10 @@ namespace WinForms_Jalon_2.Service
         public ServiceApi()
         {
             client.BaseAddress = new Uri("http://localhost:5220/api/");
-            client.Timeout = TimeSpan.FromSeconds(10);
+            //client.Timeout = TimeSpan.FromSeconds(10);
+            
+            //En cas de test
+            client.Timeout = TimeSpan.FromMinutes(5);
         }
 
         private void LireToken(string accessToken)
@@ -118,6 +121,60 @@ namespace WinForms_Jalon_2.Service
         }
 
         /// <summary>
+        /// Envoie une requête POST avec un contenu JSON.
+        /// Retourne true si la requête HTTP a réussi, sinon false.
+        /// À utiliser lorsque l'API ne renvoie pas d'objet dans la réponse.
+        /// </summary>
+        /// <typeparam name="T">Type de l'objet envoyé dans la requête.</typeparam>
+        /// <param name="route">Route de l'endpoint API.</param>
+        /// <param name="contenu">Objet à envoyer dans le body de la requête.</param>
+        /// <param name="cancellationToken">Permet d'annuler la requête HTTP.</param>
+        /// <returns>True si la requête a réussi, sinon false.</returns>
+        public async Task<bool> PostAsync<T>(string route, T contenu, CancellationToken cancellationToken = default)
+        {
+            // Envoie la requête POST avec le contenu converti en JSON
+            HttpResponseMessage reponse = await client.PostAsJsonAsync(route, contenu, cancellationToken);
+
+            // Si l'API retourne une erreur HTTP
+            if (!reponse.IsSuccessStatusCode)
+            {
+                // Gestion centralisée de l'erreur
+                await gestionnaireErreurApi.GererErreurHttpAsync(reponse);
+                return false;
+            }
+
+            // La requête s'est correctement exécutée
+            return true;
+        }
+
+        /// <summary>
+        /// Envoie une requête PUT avec un contenu JSON.
+        /// Retourne true si la requête HTTP a réussi, sinon false.
+        /// À utiliser lorsque l'API ne renvoie pas d'objet dans la réponse.
+        /// </summary>
+        /// <typeparam name="T">Type de l'objet envoyé dans la requête.</typeparam>
+        /// <param name="route">Route de l'endpoint API.</param>
+        /// <param name="contenu">Objet à envoyer dans le body de la requête.</param>
+        /// <param name="cancellationToken">Permet d'annuler la requête HTTP.</param>
+        /// <returns>True si la requête a réussi, sinon false.</returns>
+        public async Task<bool> PutAsync<T>(string route, T contenu, CancellationToken cancellationToken = default)
+        {
+            // Envoie la requête PUT avec le contenu converti en JSON
+            HttpResponseMessage reponse = await client.PutAsJsonAsync(route, contenu, cancellationToken);
+
+            // Si l'API retourne une erreur HTTP
+            if (!reponse.IsSuccessStatusCode)
+            {
+                // Gestion centralisée de l'erreur
+                await gestionnaireErreurApi.GererErreurHttpAsync(reponse);
+                return false;
+            }
+
+            // La requête s'est correctement exécutée
+            return true;
+        }
+
+        /// <summary>
         /// Envoie une requête PATCH avec un contenu JSON.
         /// Retourne true si la requête HTTP a réussi, sinon false.
         /// À utiliser lorsque l'API ne renvoie pas d'objet dans la réponse.
@@ -171,6 +228,30 @@ namespace WinForms_Jalon_2.Service
 
             // Désérialise le JSON de la réponse vers le type TReponse
             return await reponse.Content.ReadFromJsonAsync<TReponse>(cancellationToken);
+        }
+
+        /// <summary>
+        /// Envoie une requête DELETE.
+        /// Retourne true si la requête HTTP a réussi, sinon false.
+        /// </summary>
+        /// <param name="route">Route de l'endpoint API.</param>
+        /// <param name="cancellationToken">Permet d'annuler la requête HTTP.</param>
+        /// <returns>True si la requête a réussi, sinon false.</returns>
+        public async Task<bool> DeleteAsync(string route, CancellationToken cancellationToken = default)
+        {
+            // Envoie la requête DELETE
+            HttpResponseMessage reponse = await client.DeleteAsync(route, cancellationToken);
+
+            // Si l'API retourne une erreur HTTP
+            if (!reponse.IsSuccessStatusCode)
+            {
+                // Gestion centralisée de l'erreur
+                await gestionnaireErreurApi.GererErreurHttpAsync(reponse);
+                return false;
+            }
+
+            // La requête s'est correctement exécutée
+            return true;
         }
     }
 }

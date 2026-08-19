@@ -13,6 +13,7 @@ using WinForms_Jalon_2.Service;
 using WinForms_Jalon_2.Service.Api;
 using WinForms_Jalon_2.Service.DTO.Enums;
 using WinForms_Jalon_2.Service.DTO.Reponses;
+using WinForms_Jalon_2.Service.DTO.Requetes;
 
 namespace WinForms_Jalon_2
 {
@@ -143,10 +144,146 @@ namespace WinForms_Jalon_2
         #endregion
 
         #region Méthode
+
+        #region CRUD
+        private async Task AjouterProduitAsync()
+        {
+            if (cbFormuCategorie.SelectedValue is not int typeProduitId)
+            {
+                MessageBox.Show("Veuillez sélectionner une catégorie.");
+                return;
+            }
+
+            if (!int.TryParse(txtbQuantite.Text, out int quantite))
+            {
+                MessageBox.Show("La quantité est invalide.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtbPA.Text, out decimal prixAchat))
+            {
+                MessageBox.Show("Le prix d'achat est invalide.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtbPV.Text, out decimal prixVente))
+            {
+                MessageBox.Show("Le prix de vente est invalide.");
+                return;
+            }
+
+            AjouterProduitDTORequete requete = new()
+            {
+                Nom = txtbNom.Text,
+                Quantite = int.Parse(txtbQuantite.Text),
+                PrixAchat = decimal.Parse(txtbPA.Text),
+                PrixVente = decimal.Parse(txtbPV.Text),
+                Description = txtbDescription.Text,
+                TypeProduitId = typeProduitId
+            };
+
+            bool resultat = await _produitApiClient.AjouterProduitAsync(requete, CancellationToken.None);
+
+            if (!resultat)
+                return;
+
+            await RafraichirStockAsync();
+
+            MessageBox.Show("Produit ajouté.");
+        }
+
+        private async Task ModifierProduitAsync()
+        {
+            if (dgvStock.CurrentRow?.DataBoundItem is not GetProduitsItemDTOReponse produit)
+            {
+                MessageBox.Show("Veuillez sélectionner un produit.");
+                return;
+            }
+
+            if (cbFormuCategorie.SelectedValue is not int typeProduitId)
+            {
+                MessageBox.Show("Veuillez sélectionner une catégorie.");
+                return;
+            }
+
+            if (!int.TryParse(txtbQuantite.Text, out int quantite))
+            {
+                MessageBox.Show("La quantité est invalide.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtbPA.Text, out decimal prixAchat))
+            {
+                MessageBox.Show("Le prix d'achat est invalide.");
+                return;
+            }
+
+            if (!decimal.TryParse(txtbPV.Text, out decimal prixVente))
+            {
+                MessageBox.Show("Le prix de vente est invalide.");
+                return;
+            }
+
+            ModifierProduitDTORequete requete = new()
+            {
+                Nom = txtbNom.Text,
+                Quantite = quantite,
+                PrixAchat = prixAchat,
+                PrixVente = prixVente,
+                Description = txtbDescription.Text,
+                TypeProduitId = typeProduitId,
+                Version = produit.Version
+            };
+
+            bool resultat = await _produitApiClient.ModifierProduitAsync(
+                produit.Id,
+                requete,
+                CancellationToken.None);
+
+            if (!resultat)
+                return;
+
+            await RafraichirStockAsync();
+
+            MessageBox.Show("Produit modifié.");
+        }
+
+        private async Task SupprimerProduitAsync()
+        {
+            if (dgvStock.CurrentRow?.DataBoundItem is not GetProduitsItemDTOReponse produit)
+            {
+                MessageBox.Show("Veuillez sélectionner un produit.");
+                return;
+            }
+
+            DialogResult confirmation = MessageBox.Show(
+                $"Voulez-vous vraiment supprimer le produit \"{produit.Nom}\" ?",
+                "Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmation != DialogResult.Yes)
+                return;
+
+            bool resultat = await _produitApiClient.SupprimerProduitAsync(
+                produit.Id,
+                CancellationToken.None);
+
+            if (!resultat)
+                return;
+
+            await RafraichirStockAsync();
+
+            MessageBox.Show("Produit supprimé.");
+        }
+
+        #endregion
+
         private void btnCRUD_Click(object sender, EventArgs e)
         {
             tlpFormulaire.Visible = !tlpFormulaire.Visible;
         }
+        
         private void _produits_ListChanged(object? sender, ListChangedEventArgs e)
         {
             Console.WriteLine(e);
@@ -171,6 +308,23 @@ namespace WinForms_Jalon_2
             txtbDescription.Text = produit.Description;
 
             cbFormuCategorie.SelectedValue = produit.TypeProduitId;
+        }
+
+        private async Task RafraichirStockAsync()
+        {
+            datagridviewloadStock = false;
+            await ChargertpStockAsync();
+        }
+
+        private void ViderFormulaireProduit()
+        {
+            txtbNom.Clear();
+            txtbQuantite.Clear();
+            txtbPA.Clear();
+            txtbPV.Clear();
+            txtbDescription.Clear();
+
+            cbFormuCategorie.SelectedIndex = -1;
         }
 
         private void VerifierPreparationComplete()
@@ -258,7 +412,6 @@ namespace WinForms_Jalon_2
             comboBox.SelectedIndex = avecTousSaufArchivees ? 0 : -1;
         }
         #endregion
-
 
         private async void Stock_Load(object sender, EventArgs e)
         {
@@ -459,7 +612,7 @@ namespace WinForms_Jalon_2
             cbFormuCategorie.DisplayMember = "Libelle";
             cbFormuCategorie.ValueMember = "Id";
             cbFormuCategorie.SelectedIndex = -1;
-            
+
             // Remplir BindingList Stock
 
             _produits.Clear();
@@ -475,6 +628,10 @@ namespace WinForms_Jalon_2
                 row.Cells["colDetails"].Value = "▼";
             }
 
+            dgvStock.ClearSelection();
+            dgvStock.CurrentCell = null;
+
+            ViderFormulaireProduit();
 
             datagridviewloadStock = true;
         }
@@ -562,8 +719,44 @@ namespace WinForms_Jalon_2
 
             datagridviewloadCmdStatut = true;
         }
+
         #endregion
 
+        #region Evenement
+
+        #region Stock
+
+        #region Formulaire
+        private void dgvStock_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvStock.CurrentRow?.DataBoundItem is not GetProduitsItemDTOReponse produit)
+            {
+                return;
+            }
+
+            RemplirFormulaireProduit(produit);
+        }
+        
+        private async void btnAjouterProduit_Click(object sender, EventArgs e)
+        {
+            await AjouterProduitAsync();
+        }
+        
+        private async void btnModifier_Click(object sender, EventArgs e)
+        {
+            await ModifierProduitAsync();
+        }
+        
+        private async void btnSupprimer_Click(object sender, EventArgs e)
+        {
+            await SupprimerProduitAsync();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Liste Préparation
         private async void btnPreparer_Click(object sender, EventArgs e)
         {
             if (dgvListePrep.CurrentRow?.DataBoundItem
@@ -581,9 +774,12 @@ namespace WinForms_Jalon_2
             await ChargertpPrepAsync(commande.Id);
         }
 
+        #endregion
+
+        #region Préparation
         private void tcStock_Selecting(object sender, TabControlCancelEventArgs e)
         {
-            if (-_commandeEnCoursId is not null && e.TabPage == tpListePrep)
+            if (_commandeEnCoursId is not null && e.TabPage == tpListePrep)
             {
                 e.Cancel = true;
 
@@ -675,6 +871,10 @@ namespace WinForms_Jalon_2
             tcStock.SelectedTab = tpListePrep;
         }
 
+        #endregion
+
+        #region CmdStatut
+
         private void cbFiltreStatut_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_toutesCommandesCmdStatut is null)
@@ -683,6 +883,15 @@ namespace WinForms_Jalon_2
             }
 
             FiltrerCommandesManager();
+        }
+
+        private void dgvCmdStatut_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvCmdStatut.Columns[e.ColumnIndex].DataPropertyName == "Statut" && e.Value is StatutCommande statut)
+            {
+                e.Value = ObtenirLibelleStatut(statut);
+                e.FormattingApplied = true;
+            }
         }
 
         private async void btnModifierStatut_Click(object sender, EventArgs e)
@@ -765,23 +974,9 @@ namespace WinForms_Jalon_2
                 MessageBoxIcon.Information);
         }
 
-        private void dgvCmdStatut_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dgvCmdStatut.Columns[e.ColumnIndex].DataPropertyName == "Statut" && e.Value is StatutCommande statut)
-            {
-                e.Value = ObtenirLibelleStatut(statut);
-                e.FormattingApplied = true;
-            }
-        }
+        #endregion
 
-        private void dgvStock_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvStock.CurrentRow?.DataBoundItem is not GetProduitsItemDTOReponse produit)
-            {
-                return;
-            }
+        #endregion
 
-            RemplirFormulaireProduit(produit);
-        }
     }
 }

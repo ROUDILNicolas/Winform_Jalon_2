@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using WinForms_Jalon_2.Service.DTO.Reponses;
+using WinForms_Jalon_2.Service.DTO.Requetes;
 
 namespace WinForms_Jalon_2.Service.Api
 {
@@ -32,6 +33,21 @@ namespace WinForms_Jalon_2.Service.Api
         public async Task<List<GetTypesProduitDTOReponse>?> GetTypesProduitAsync(CancellationToken cancellationToken)
         {
             return await _serviceApi.GetAsync<List<GetTypesProduitDTOReponse>>("Produit/types", cancellationToken);
+        }
+
+        public async Task<bool> AjouterProduitAsync(AjouterProduitDTORequete requete, CancellationToken cancellationToken)
+        {
+            return await _serviceApi.PostAsync("Produit", requete, cancellationToken);
+        }
+
+        public async Task<bool> ModifierProduitAsync(int id, ModifierProduitDTORequete requete, CancellationToken cancellationToken)
+        {
+            return await _serviceApi.PutAsync($"Produit/{id}", requete, cancellationToken);
+        }
+
+        public async Task<bool> SupprimerProduitAsync(int id, CancellationToken cancellationToken)
+        {
+            return await _serviceApi.DeleteAsync($"Produit/{id}", cancellationToken);
         }
     }
 }

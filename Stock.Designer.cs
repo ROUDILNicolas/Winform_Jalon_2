@@ -450,6 +450,7 @@
             btnAjouterProduit.TabIndex = 0;
             btnAjouterProduit.Text = "Ajouter";
             btnAjouterProduit.UseVisualStyleBackColor = true;
+            btnAjouterProduit.Click += btnAjouterProduit_Click;
             // 
             // btnModifier
             // 
@@ -459,6 +460,7 @@
             btnModifier.TabIndex = 1;
             btnModifier.Text = "Modifier";
             btnModifier.UseVisualStyleBackColor = true;
+            btnModifier.Click += btnModifier_Click;
             // 
             // btnSupprimer
             // 
@@ -468,6 +470,7 @@
             btnSupprimer.TabIndex = 2;
             btnSupprimer.Text = "Supprimer";
             btnSupprimer.UseVisualStyleBackColor = true;
+            btnSupprimer.Click += btnSupprimer_Click;
             // 
             // dgvStock
             // 
