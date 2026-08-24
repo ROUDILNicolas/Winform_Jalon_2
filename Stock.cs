@@ -283,7 +283,7 @@ namespace WinForms_Jalon_2
         {
             tlpFormulaire.Visible = !tlpFormulaire.Visible;
         }
-        
+
         private void _produits_ListChanged(object? sender, ListChangedEventArgs e)
         {
             Console.WriteLine(e);
@@ -736,17 +736,17 @@ namespace WinForms_Jalon_2
 
             RemplirFormulaireProduit(produit);
         }
-        
+
         private async void btnAjouterProduit_Click(object sender, EventArgs e)
         {
             await AjouterProduitAsync();
         }
-        
+
         private async void btnModifier_Click(object sender, EventArgs e)
         {
             await ModifierProduitAsync();
         }
-        
+
         private async void btnSupprimer_Click(object sender, EventArgs e)
         {
             await SupprimerProduitAsync();
@@ -977,6 +977,5 @@ namespace WinForms_Jalon_2
         #endregion
 
         #endregion
-
     }
 }

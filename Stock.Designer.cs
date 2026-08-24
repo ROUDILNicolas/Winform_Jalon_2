@@ -239,7 +239,7 @@
             lblQte.Name = "lblQte";
             lblQte.Size = new Size(33, 20);
             lblQte.TabIndex = 2;
-            lblQte.Text = "Qte";
+            lblQte.Text = "Qté";
             // 
             // txtbQte
             // 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace WinForms_Jalon_2.Service.Api
 {
@@ -45,11 +46,36 @@ namespace WinForms_Jalon_2.Service.Api
                     break;
 
                 case HttpStatusCode.Conflict:
-                    MessageBox.Show(
-                        "Les données ont été modifiées ailleurs. Rechargez puis réessayez.",
-                        "Conflit de modification"
-                    );
-                    break;
+                    {
+                        string message = "Un conflit est survenu.";
+
+                        try
+                        {
+                            using JsonDocument document =
+                                JsonDocument.Parse(contenuErreur);
+
+                            if (document.RootElement.TryGetProperty(
+                                    "message",
+                                    out JsonElement messageElement))
+                            {
+                                message = messageElement.GetString() ?? message;
+                            }
+                        }
+                        catch (JsonException)
+                        {
+                            if (!string.IsNullOrWhiteSpace(contenuErreur))
+                            {
+                                message = contenuErreur;
+                            }
+                        }
+
+                        MessageBox.Show(
+                            message,
+                            "Conflit"
+                        );
+
+                        break;
+                    }
 
                 case HttpStatusCode.InternalServerError:
                     MessageBox.Show(
