@@ -252,6 +252,7 @@
             dgvCommande.Dock = DockStyle.Fill;
             dgvCommande.Location = new Point(3, 3);
             dgvCommande.Name = "dgvCommande";
+            dgvCommande.RowHeadersVisible = false;
             dgvCommande.RowHeadersWidth = 51;
             dgvCommande.Size = new Size(642, 356);
             dgvCommande.TabIndex = 6;
